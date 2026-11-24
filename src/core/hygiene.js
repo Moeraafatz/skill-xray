@@ -51,7 +51,7 @@ export function parseFrontmatter(text) {
   };
 }
 
-export function analyzeHygiene({ primaryText, primaryRelPath, bundledScripts = [] }) {
+export function analyzeHygiene({ primaryText, primaryRelPath, bundledScripts = [], allFiles = [] }) {
   const findings = [];
   const fm = parseFrontmatter(primaryText);
   const totalTokens = estimateTokens(primaryText);
@@ -110,12 +110,26 @@ export function analyzeHygiene({ primaryText, primaryRelPath, bundledScripts = [
     });
   }
 
-  // Stealth unreferenced script check: script exists in bundle, never mentioned in SKILL.md!
-  const lowerPrimary = String(primaryText || '').toLowerCase();
+  // Stealth unreferenced script check:
+  // A script is referenced if mentioned in SKILL.md, ANY sibling Markdown doc/reference,
+  // OR imported/called by another file inside the bundle. Ignore unit tests and __init__.py.
+  const otherTextsByFile = allFiles.length > 0
+    ? allFiles.map((f) => ({ relPath: f.relPath, lower: String(f.content || '').toLowerCase() }))
+    : [{ relPath: primaryRelPath, lower: String(primaryText || '').toLowerCase() }];
+
   for (const scriptRel of bundledScripts) {
     const base = scriptRel.split('/').pop().toLowerCase();
+    if (
+      base === '__init__.py' ||
+      /(?:\.test\.|\.spec\.|_test\.py$|^test_.*\.py$)/.test(base)
+    ) {
+      continue;
+    }
     const stem = base.replace(/\.[^.]+$/, '');
-    if (!lowerPrimary.includes(base) && !lowerPrimary.includes(stem)) {
+    const referenced = otherTextsByFile.some(
+      (f) => f.relPath !== scriptRel && (f.lower.includes(base) || (stem.length >= 4 && f.lower.includes(stem)))
+    );
+    if (!referenced) {
       findings.push({
         id: 'UNREFERENCED_SCRIPT',
         category: 'supply_chain',
@@ -124,8 +138,8 @@ export function analyzeHygiene({ primaryText, primaryRelPath, bundledScripts = [
         file: scriptRel,
         line: 1,
         title: `Stealth unreferenced executable script bundled with skill: ${scriptRel}`,
-        evidence: `${scriptRel} is never referenced inside ${primaryRelPath}`,
-        remediation: 'Inspect or remove hidden scripts not documented in SKILL.md.'
+        evidence: `${scriptRel} is never referenced in docs or imported by sibling scripts`,
+        remediation: 'Inspect or remove hidden scripts not documented or imported inside the skill bundle.'
       });
     }
   }

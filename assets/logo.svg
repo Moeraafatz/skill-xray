@@ -8,7 +8,7 @@
   <circle cx="46" cy="25" r="5" fill="#CA8A04" stroke="#0A0A0A" stroke-width="1.2" />
   <circle cx="64" cy="25" r="5" fill="#DC2626" stroke="#0A0A0A" stroke-width="1.2" />
   <text x="84" y="29" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="700" fill="#0A0A0A">SECURITY CHECKPOINT // AGENT SKILL BAGGAGE X-RAY</text>
-  <text x="896" y="29" text-anchor="end" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#525252">v1.0.0 · ZERO DEPS · ED25519 SIGNED</text>
+  <text x="896" y="29" text-anchor="end" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#525252">v1.0.1 · ZERO DEPS · ED25519 SIGNED</text>
 
   <!-- LEFT BRAND BLOCK -->
   <g transform="translate(28, 62)">
@@ -133,6 +133,6 @@
     </g>
 
     <!-- Bottom Conveyor Footer -->
-    <text x="16" y="224" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" font-weight="700" fill="#0A0A0A">CONVEYOR SPEED: 0.048ms / SKILL · ZERO NETWORK CALLS · NEVER EXECUTES CODE</text>
+    <text x="16" y="224" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" font-weight="700" fill="#0A0A0A">CONVEYOR SPEED: 0.053ms / SKILL · ZERO NETWORK CALLS · NEVER EXECUTES CODE</text>
   </g>
 </svg>

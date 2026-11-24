@@ -97,7 +97,8 @@ export function scanSkillBundle({ name, rootPath, primaryRelPath, files, kind = 
   const hygiene = analyzeHygiene({
     primaryText: primary.content,
     primaryRelPath: primary.relPath,
-    bundledScripts
+    bundledScripts,
+    allFiles: files
   });
   allFindings.push(...hygiene.findings);
 

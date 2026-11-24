@@ -4,7 +4,7 @@ import { createLockfile, verifyLockfile } from '../core/lockfile.js';
 const PROTOCOL_VERSION = '2024-11-05';
 const SERVER_INFO = {
   name: 'skill-xray',
-  version: '1.0.0'
+  version: '1.0.1'
 };
 
 export const MCP_TOOLS = [

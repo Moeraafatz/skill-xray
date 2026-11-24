@@ -53,7 +53,7 @@ const INJECTION_RULES = [
     severity: 'critical',
     score: 62,
     title: 'Covert concealment directive (instructs agent to hide actions from user)',
-    regex: /\b(?:do\s+not\s+(?:tell|inform|notify|show|mention\s+to|reveal\s+to)|hide\s+(?:this|the\s+output|these\s+steps)\s+from|without\s+(?:telling|notifying|informing|asking)\s+the\s+user|keep\s+this\s+(?:secret|hidden)\s+from\s+the\s+user|silently\s+(?:run|execute|send|upload|exfiltrate|transmit|post|modify))\b/gi,
+    regex: /\b(?:do\s+not\s+(?:tell|inform|notify|mention\s+to|reveal\s+to|show\s+(?:this|these\s+steps|the\s+output|anything)\s+to)\s+(?:the\s+|your\s+)?user|hide\s+(?:this|the\s+output|these\s+steps|your\s+actions?)\s+from\s+(?:the\s+|your\s+)?user|without\s+(?:telling|notifying|informing|asking)\s+the\s+user|keep\s+this\s+(?:secret|hidden)\s+from\s+the\s+user|silently\s+(?:run|execute|send|upload|exfiltrate|transmit|post|modify))\b/gi,
     remediation: 'Audit immediately: legitimate skills operate transparently and never instruct agents to hide behavior.'
   },
   {

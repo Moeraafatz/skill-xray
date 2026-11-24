@@ -53,7 +53,7 @@ function generateLogo() {
   <circle cx="46" cy="25" r="5" fill="${YELLOW}" stroke="${INK}" stroke-width="1.2" />
   <circle cx="64" cy="25" r="5" fill="${RED}" stroke="${INK}" stroke-width="1.2" />
   <text x="84" y="29" font-family="${MONO}" font-size="11" font-weight="700" fill="${INK}">SECURITY CHECKPOINT // AGENT SKILL BAGGAGE X-RAY</text>
-  <text x="896" y="29" text-anchor="end" font-family="${MONO}" font-size="11" fill="${MUTED}">v1.0.0 · ZERO DEPS · ED25519 SIGNED</text>
+  <text x="896" y="29" text-anchor="end" font-family="${MONO}" font-size="11" fill="${MUTED}">v1.0.1 · ZERO DEPS · ED25519 SIGNED</text>
 
   <!-- LEFT BRAND BLOCK -->
   <g transform="translate(28, 62)">

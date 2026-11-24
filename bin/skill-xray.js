@@ -93,7 +93,7 @@ function toSarif(report) {
         tool: {
           driver: {
             name: 'skill-xray',
-            version: '1.0.0',
+            version: '1.0.1',
             informationUri: 'https://github.com/Moeraafatz/skill-xray',
             rules: [...rulesMap.values()]
           }
@@ -106,7 +106,7 @@ function toSarif(report) {
 
 function printHelp() {
   console.log(`
-${A.bold}skill-xray v1.0.0${A.reset} — Security Scanner, Taint Analyzer & Ed25519 Lockfile for AI Agent Skills
+${A.bold}skill-xray v1.0.1${A.reset} — Security Scanner, Taint Analyzer & Ed25519 Lockfile for AI Agent Skills
 ${A.dim}Unicode Stego · Prompt Overrides · Denning Taint Flow · Least-Privilege Matrix · Ed25519 Lock${A.reset}
 
 ${A.bold}USAGE${A.reset}
@@ -242,7 +242,8 @@ async function main() {
     const shouldFail =
       (failOn === 'block' && report.counts.red > 0) ||
       (failOn === 'warn' && (report.counts.red > 0 || report.counts.yellow > 0));
-    process.exit(shouldFail ? 1 : 0);
+    process.exitCode = shouldFail ? 1 : 0;
+    return;
   }
 
   if (cmd === 'lock') {
@@ -281,7 +282,8 @@ async function main() {
         console.log(`  ${dot('yellow')} REMOVED: ${r.name} (${r.rel_path})`);
       }
     }
-    process.exit(res.ok ? 0 : 1);
+    process.exitCode = res.ok ? 0 : 1;
+    return;
   }
 
   console.error(`${dot('red')} Unknown command: ${cmd}`);

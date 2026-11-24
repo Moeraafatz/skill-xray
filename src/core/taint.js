@@ -124,7 +124,7 @@ const SINK_RULES = [
   {
     kind: 'dns_exfil',
     label: 'DNS lookup covert channel',
-    regex: /\b(?:dig|nslookup|host)\s+[^\n]*(?:\$\(|\$\{|`)/gi
+    regex: /(?:^|[;&|]\s*|\n\s*|\bexec\s+|\$\()\b(?:dig|nslookup|host)\s+(?:-[A-Za-z0-9]+\s+)*(?:[^\s\n`]*?(?:\$\(|\$\{)|[^\s\n]*\.[^\s\n]*\$\()/gim
   },
   {
     kind: 'raw_socket',
@@ -169,6 +169,7 @@ export function extractTaintNodes(text, relPath, { isScript = false } = {}) {
         kind: rule.kind,
         label: rule.label,
         file: relPath,
+        isScript,
         line: lineAt(text, m.index),
         snippet: m[0].trim().slice(0, 100)
       });
@@ -211,6 +212,7 @@ export function extractTaintNodes(text, relPath, { isScript = false } = {}) {
             kind: isSuspiciousDrop ? 'exfil_webhook' : 'raw_ip_endpoint',
             label: isSuspiciousDrop ? `Drop-box webhook (${parsed.host})` : `Raw IP endpoint (${parsed.host})`,
             file: relPath,
+            isScript,
             line: lineAt(text, m.index),
             snippet: parsed.full.slice(0, 110),
             untrusted: true
@@ -233,6 +235,7 @@ export function extractTaintNodes(text, relPath, { isScript = false } = {}) {
         kind: rule.kind,
         label: rule.label,
         file: relPath,
+        isScript,
         line: lineAt(text, m.index),
         snippet: m[0].trim().slice(0, 110),
         untrusted
@@ -267,19 +270,35 @@ export function evaluateBundleTaint(fileTaints) {
   const untrustedSinks = allSinks.filter((s) => s.untrusted);
 
   // 1. Complete SOURCE -> [TRANSFORM] -> UNTRUSTED SINK exfiltration flow
+  // Require either same-file co-occurrence, an executable script on either end,
+  // or an explicitly suspicious exfil sink (drop-box webhook / raw IP / DNS / raw socket)
+  // so separate tutorial reference docs (e.g. Node guide + Python guide) do not false-link.
   if (allSources.length > 0 && untrustedSinks.length > 0) {
-    const primarySource = allSources[0];
-    const primarySink = untrustedSinks[0];
-    const hasTransform = allTransforms.length > 0;
-    const sameFile = primarySource.file === primarySink.file;
+    let matchedPair = null;
+    for (const src of allSources) {
+      for (const snk of untrustedSinks) {
+        const isExplicitDrop =
+          snk.kind === 'exfil_webhook' ||
+          snk.kind === 'raw_ip_endpoint' ||
+          snk.kind === 'dns_exfil' ||
+          snk.kind === 'raw_socket';
+        const sameFile = src.file === snk.file;
+        const involvesScript = Boolean(src.isScript || snk.isScript);
+        const isHighRiskSource =
+          src.kind !== 'env_dump' ||
+          /printenv|JSON\.stringify|os\.environ|\benv\s*\||AWS_SECRET|GITHUB_TOKEN/.test(src.snippet);
 
-    // Exclude harmless single `process.env.API_KEY` read going ONLY to a benign official API
-    const highRiskSource = allSources.some(
-      (s) => s.kind !== 'env_dump' || /printenv|JSON\.stringify|os\.environ|\benv\s*\||AWS_SECRET|GITHUB_TOKEN/.test(s.snippet)
-    );
-    const hasDropSink = untrustedSinks.some((s) => s.kind === 'exfil_webhook' || s.kind === 'raw_ip_endpoint' || s.kind === 'dns_exfil' || s.kind === 'raw_socket');
+        if (isExplicitDrop || (involvesScript && (sameFile || isHighRiskSource)) || (sameFile && isHighRiskSource)) {
+          matchedPair = { src, snk, isExplicitDrop };
+          break;
+        }
+      }
+      if (matchedPair) break;
+    }
 
-    if (highRiskSource || hasDropSink || hasTransform || sameFile) {
+    if (matchedPair) {
+      const { src: primarySource, snk: primarySink, isExplicitDrop } = matchedPair;
+      const hasTransform = allTransforms.length > 0;
       const flow = {
         source: `${primarySource.kind} (${primarySource.file}:${primarySource.line})`,
         transform: hasTransform ? `${allTransforms[0].kind} (${allTransforms[0].file}:${allTransforms[0].line})` : null,
@@ -291,7 +310,7 @@ export function evaluateBundleTaint(fileTaints) {
         id: 'TAINT_EXFIL_FLOW',
         category: 'taint_flow',
         severity: 'critical',
-        score: hasDropSink || hasTransform ? 78 : 66,
+        score: isExplicitDrop || hasTransform ? 78 : 66,
         file: primarySink.file,
         line: primarySink.line,
         title: `Information-flow exfiltration path: ${primarySource.kind} -> ${hasTransform ? allTransforms[0].kind + ' -> ' : ''}${primarySink.kind}`,

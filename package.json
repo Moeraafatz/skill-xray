@@ -1,6 +1,6 @@
 {
   "name": "skill-xray",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zero-dependency security scanner, information-flow taint analyzer, Unicode steganography detector, and Ed25519 cryptographic lockfile for AI Agent Skills (SKILL.md, .cursor/rules/*.mdc, scripts/, Claude Code, Codex CLI, Cursor, Windsurf, Antigravity).",
   "type": "module",
   "engines": {

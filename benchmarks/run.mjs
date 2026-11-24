@@ -307,7 +307,7 @@ function run() {
         latency_p95_ms: percentile(naive.lat, 95)
       },
       skill_xray: {
-        label: 'skill-xray v1.0.0',
+        label: 'skill-xray v1.0.1',
         ...scoreMetrics(xray.tp, xray.fp, xray.tn, xray.fn),
         latency_p50_ms: percentile(xray.lat, 50),
         latency_p95_ms: percentile(xray.lat, 95)

@@ -69,7 +69,7 @@ export function createHttpServer({ initialTargets = [] } = {}) {
 
     try {
       if (pathname === '/api/health' && req.method === 'GET') {
-        return sendJson(res, 200, { status: 'ok', engine: 'skill-xray', version: '1.0.0' });
+        return sendJson(res, 200, { status: 'ok', engine: 'skill-xray', version: '1.0.1' });
       }
 
       if (pathname === '/mcp' && req.method === 'POST') {

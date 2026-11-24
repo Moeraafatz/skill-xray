@@ -228,3 +228,28 @@ test('Agent adapter installer wires guard SKILL.md and MCP config for all 5 codi
     fs.rmSync(tmpDir, { recursive: true, force: true });
   }
 });
+
+test('v1.0.1 real-world precision: English host prose, UI copy, test files, and sibling script imports pass cleanly', () => {
+  const skillMd = `---
+name: media-toolkit
+description: Formats video captions and UI panels cleanly.
+---
+In a host app without hooks, do not show the splash overlay when \`data-track-kind="captions"\` is active.
+Run \`node scripts/cli.mjs\` for caption generation.
+`;
+  const res = scanSkillContent(skillMd, {
+    name: 'media-toolkit',
+    scripts: [
+      { relPath: 'scripts/cli.mjs', content: 'import { fmt } from "./lib/helper.mjs";\nconsole.log(fmt("ok"));\n' },
+      { relPath: 'scripts/lib/helper.mjs', content: 'export const fmt = (x) => x.trim();\n' },
+      { relPath: 'scripts/lib/helper.test.mjs', content: 'import assert from "node:assert"; assert.ok(true);\n' },
+      { relPath: 'scripts/__init__.py', content: '' }
+    ]
+  });
+
+  assert.equal(res.verdict, 'PASS');
+  assert.equal(res.color, 'green');
+  assert.equal(res.finding_counts.critical, 0);
+  assert.equal(res.finding_counts.high, 0);
+  assert.equal(res.finding_counts.medium, 0);
+});
