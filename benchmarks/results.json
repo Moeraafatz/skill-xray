@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-11-24T12:04:38.072Z",
+  "dataset": {
+    "total": 48,
+    "malicious": 24,
+    "benign": 24
+  },
+  "scanners": {
+    "blind_install": {
+      "label": "Blind Community Install",
+      "tp": 0,
+      "fp": 0,
+      "tn": 24,
+      "fn": 24,
+      "precision_pct": 0,
+      "recall_pct": 0,
+      "f1_pct": 0,
+      "fpr_pct": 0,
+      "latency_p50_ms": 0,
+      "latency_p95_ms": 0
+    },
+    "naive_grep": {
+      "label": "Naive Regex Grep",
+      "tp": 8,
+      "fp": 3,
+      "tn": 21,
+      "fn": 16,
+      "precision_pct": 72.7,
+      "recall_pct": 33.3,
+      "f1_pct": 45.7,
+      "fpr_pct": 12.5,
+      "latency_p50_ms": 0.001,
+      "latency_p95_ms": 0.054
+    },
+    "skill_xray": {
+      "label": "skill-xray v1.0.0",
+      "tp": 24,
+      "fp": 0,
+      "tn": 24,
+      "fn": 0,
+      "precision_pct": 100,
+      "recall_pct": 100,
+      "f1_pct": 100,
+      "fpr_pct": 0,
+      "latency_p50_ms": 0.048,
+      "latency_p95_ms": 2.752
+    }
+  },
+  "by_attack_class": {
+    "unicode_stego": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 0
+    },
+    "prompt_injection": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 2
+    },
+    "taint_exfil": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 2
+    },
+    "rce_obfuscation": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 2
+    },
+    "sandbox_persistence": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 1
+    },
+    "stealth_supply_chain": {
+      "total": 4,
+      "xray_caught": 4,
+      "naive_caught": 1
+    }
+  }
+}

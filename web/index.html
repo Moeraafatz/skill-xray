@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>skill-xray — Agent Skill Security Scanner</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <svg viewBox="0 0 44 44" width="36" height="36" aria-hidden="true">
+        <rect x="1.5" y="1.5" width="41" height="41" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2" />
+        <rect x="8" y="14" width="28" height="20" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.8" />
+        <line x1="8" y1="36" x2="36" y2="36" stroke="#0A0A0A" stroke-width="2" />
+        <path d="M16 14 V10 H28 V14" fill="none" stroke="#0A0A0A" stroke-width="1.8" />
+        <line x1="14" y1="24" x2="30" y2="24" stroke="#0A0A0A" stroke-width="1.6" stroke-dasharray="3 2" />
+        <circle cx="8" cy="7" r="2.2" fill="#16A34A" />
+        <circle cx="15" cy="7" r="2.2" fill="#CA8A04" />
+        <circle cx="22" cy="7" r="2.2" fill="#DC2626" />
+      </svg>
+      <div>
+        <h1>skill-xray</h1>
+        <p class="subtitle">Unicode Stego · Prompt Injection · Denning Taint Flow · Ed25519 Lockfile</p>
+      </div>
+    </div>
+    <div class="controls">
+      <input id="scan-path-input" type="text" placeholder="Path to scan (leave empty = auto-discover)" />
+      <button id="btn-scan-path" class="btn btn-primary">Scan Paths</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="kpi-grid">
+      <article class="kpi-card">
+        <div class="kpi-label">SKILLS AUDITED</div>
+        <div class="kpi-value" id="kpi-total">0</div>
+        <div class="kpi-meta">
+          <span><span class="dot dot-green"></span><strong id="kpi-green">0</strong> PASS</span>
+          <span><span class="dot dot-yellow"></span><strong id="kpi-yellow">0</strong> WARN</span>
+          <span><span class="dot dot-red"></span><strong id="kpi-red">0</strong> BLOCK</span>
+        </div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-label">OVERALL VERDICT</div>
+        <div class="kpi-value" id="kpi-verdict">—</div>
+        <div class="kpi-meta" id="kpi-latency">0.0 ms total</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-label">TOTAL FINDINGS</div>
+        <div class="kpi-value" id="kpi-findings">0</div>
+        <div class="kpi-meta">Unicode + Injection + Taint + Hygiene</div>
+      </article>
+      <article class="kpi-card">
+        <div class="kpi-label">METADATA BUDGET (~8K CAP)</div>
+        <div class="kpi-value" id="kpi-budget">0%</div>
+        <div class="kpi-meta" id="kpi-budget-meta">0 / 8000 description chars</div>
+      </article>
+    </section>
+
+    <!-- Live Paste-and-X-Ray Sandbox -->
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Live X-Ray Conveyor (Paste Untrusted SKILL.md + Optional Script)</h2>
+          <p class="hint">Pre-flight audit before installing any community skill. Test specimens below demonstrate real attack vectors.</p>
+        </div>
+        <div class="preset-row">
+          <button class="btn btn-sm" data-preset="clean">Preset: Clean Skill</button>
+          <button class="btn btn-sm" data-preset="unicode">Preset: Unicode Tag Attack</button>
+          <button class="btn btn-sm" data-preset="taint">Preset: Cross-File Taint Exfil</button>
+          <button class="btn btn-sm" data-preset="bypass">Preset: Sandbox Bypass</button>
+        </div>
+      </div>
+
+      <div class="sandbox-grid">
+        <div>
+          <label class="field-label">SKILL.md Content</label>
+          <textarea id="paste-skill" rows="9" placeholder="Paste SKILL.md or .cursor/rules/*.mdc content..."></textarea>
+        </div>
+        <div>
+          <label class="field-label">Optional Bundled Script (scripts/helper.sh)</label>
+          <textarea id="paste-script" rows="9" placeholder="Optional script content to test cross-file Denning taint flows..."></textarea>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button id="btn-xray-paste" class="btn btn-primary">Run X-Ray Inspection</button>
+        <span class="hint">100% local static + taint analysis · never executes pasted scripts</span>
+      </div>
+
+      <div id="paste-result" class="xray-output hidden"></div>
+    </section>
+
+    <!-- Workspace Scan Results Table -->
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Scanned Skills &amp; Capability Matrix</h2>
+          <p class="hint">Click any row to inspect line-level findings, decoded payloads, taint paths, and SHA-256 Merkle root.</p>
+        </div>
+        <div class="legend">
+          <span><span class="dot dot-green"></span>PASS (0–24)</span>
+          <span><span class="dot dot-yellow"></span>WARN (25–59)</span>
+          <span><span class="dot dot-red"></span>BLOCK (60–100)</span>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table class="xray-table">
+          <thead>
+            <tr>
+              <th>VERDICT</th>
+              <th>SKILL</th>
+              <th>RISK</th>
+              <th>CAPABILITIES</th>
+              <th>FILES / TOKENS</th>
+              <th>MERKLE ROOT</th>
+            </tr>
+          </thead>
+          <tbody id="skills-tbody"></tbody>
+        </table>
+      </div>
+      <div id="skill-detail" class="xray-output hidden"></div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

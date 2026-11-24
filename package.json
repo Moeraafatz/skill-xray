@@ -1,0 +1,49 @@
+{
+  "name": "skill-xray",
+  "version": "1.0.0",
+  "description": "Zero-dependency security scanner, information-flow taint analyzer, Unicode steganography detector, and Ed25519 cryptographic lockfile for AI Agent Skills (SKILL.md, .cursor/rules/*.mdc, scripts/, Claude Code, Codex CLI, Cursor, Windsurf, Antigravity).",
+  "type": "module",
+  "engines": {
+    "node": ">=22.5.0"
+  },
+  "bin": {
+    "skill-xray": "./bin/skill-xray.js"
+  },
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./scanner": "./src/core/scanner.js",
+    "./lockfile": "./src/core/lockfile.js",
+    "./mcp": "./src/mcp/server.js"
+  },
+  "scripts": {
+    "start": "node ./bin/skill-xray.js ui",
+    "mcp": "node ./bin/skill-xray.js mcp",
+    "test": "node --test test/*.test.js",
+    "bench": "node benchmarks/run.mjs",
+    "assets": "node scripts/generate-assets.mjs"
+  },
+  "keywords": [
+    "ai-agents",
+    "agent-skills",
+    "skill-md",
+    "security",
+    "prompt-injection",
+    "taint-analysis",
+    "supply-chain-security",
+    "unicode-steganography",
+    "ed25519",
+    "claude-code",
+    "codex",
+    "cursor",
+    "mcp",
+    "static-analysis"
+  ],
+  "author": "RAFBUG <128036625+Moeraafatz@users.noreply.github.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Moeraafatz/skill-xray.git"
+  },
+  "homepage": "https://github.com/Moeraafatz/skill-xray#readme"
+}

@@ -1,0 +1,114 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" role="img" aria-label="skill-xray 4-Stage Analysis and Ed25519 Architecture">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#0A0A0A" />
+    </marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0 0 L10 5 L0 10 z" fill="#DC2626" />
+    </marker>
+  </defs>
+
+  <rect width="920" height="430" fill="#FFFFFF" />
+  <rect x="6" y="6" width="908" height="418" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2" />
+
+  <text x="24" y="34" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="15" font-weight="800" fill="#0A0A0A">FIG 2. INSIDE THE X-RAY TUNNEL — STATIC, TAINT &amp; CRYPTO PIPELINE</text>
+  <text x="24" y="51" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" fill="#525252">Audits SKILL.md, .cursor/rules/*.mdc, scripts/*, and .mcp.json without executing a single byte of untrusted code</text>
+
+  <!-- Input Row -->
+  <rect x="24" y="68" width="872" height="44" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.5" />
+  <text x="460" y="95" text-anchor="middle" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="800" fill="#0A0A0A">INPUTS:  SKILL.md  +  scripts/*.sh|py|js  +  .cursor/rules/*.mdc  +  .mcp.json  +  MCP Pre-Flight Text</text>
+
+  <line x1="130" y1="112" x2="130" y2="136" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="350" y1="112" x2="350" y2="136" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="570" y1="112" x2="570" y2="136" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="790" y1="112" x2="790" y2="136" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+
+  <!-- 4 Parallel Analysis Engines -->
+  
+    <g>
+      <rect x="24" y="138" width="206" height="72" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="24" y="138" width="206" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="36" cy="150" r="4" fill="#DC2626" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="46" y="154" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">1. UNICODE STEGO</text>
+      <text x="34" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">U+E0000 tag decoder</text>
+      <text x="34" y="195" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">BiDi RLO · Homoglyphs</text>
+    </g>
+  
+    <g>
+      <rect x="246" y="138" width="206" height="72" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="246" y="138" width="206" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="258" cy="150" r="4" fill="#DC2626" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="268" y="154" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">2. INJECTION + B64</text>
+      <text x="256" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">Negation-aware rules</text>
+      <text x="256" y="195" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Base64 decode · Bypass</text>
+    </g>
+  
+    <g>
+      <rect x="468" y="138" width="206" height="72" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="468" y="138" width="206" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="480" cy="150" r="4" fill="#DC2626" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="490" y="154" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">3. DENNING TAINT</text>
+      <text x="478" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">SOURCE -> XFORM -> SINK</text>
+      <text x="478" y="195" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Cross-file .env/.ssh</text>
+    </g>
+  
+    <g>
+      <rect x="690" y="138" width="206" height="72" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="690" y="138" width="206" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="702" cy="150" r="4" fill="#CA8A04" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="712" y="154" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">4. HYGIENE + MCP</text>
+      <text x="700" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">~8K metadata cap check</text>
+      <text x="700" y="195" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Stealth scripts · npx</text>
+    </g>
+
+  <!-- Denning Taint Lattice Strip -->
+  <line x1="130" y1="210" x2="130" y2="236" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="350" y1="210" x2="350" y2="236" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="570" y1="210" x2="570" y2="236" stroke="#DC2626" stroke-width="1.6" marker-end="url(#ar)" />
+  <line x1="790" y1="210" x2="790" y2="236" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+
+  
+    <g>
+      <rect x="24" y="238" width="428" height="74" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="24" y="238" width="428" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="36" cy="250" r="4" fill="#CA8A04" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="46" y="254" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">CAPABILITY MATRIX & SATURATING RISK SCORER (0-100)</text>
+      <text x="34" y="280" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">7 Caps: FS_READ · FS_WRITE · SHELL · NET · CREDENTIALS · BYPASS · PERSIST</text>
+      <text x="34" y="295" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Saturating aggregation: R = min(100, s_max + sum s_k / k^0.85)</text>
+    </g>
+  
+    <g>
+      <rect x="468" y="238" width="428" height="74" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+      <rect x="468" y="238" width="428" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
+      <circle cx="480" cy="250" r="4" fill="#16A34A" stroke="#0A0A0A" stroke-width="0.9" />
+      <text x="490" y="254" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">ED25519 MERKLE CRYPTOGRAPHIC LOCKFILE (skills.lock.json)</text>
+      <text x="478" y="280" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">SHA-256 Merkle root over every file in bundle + Ed25519 signature</text>
+      <text x="478" y="295" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Detects 1-byte silent rug-pull edits & lockfile forgery offline</text>
+    </g>
+
+  <!-- Output Traffic-Light Verdicts -->
+  <line x1="238" y1="312" x2="238" y2="338" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+  <line x1="682" y1="312" x2="682" y2="338" stroke="#0A0A0A" stroke-width="1.6" marker-end="url(#a)" />
+
+  <g transform="translate(24, 340)">
+    <rect x="0" y="0" width="276" height="68" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+    <circle cx="16" cy="20" r="5" fill="#16A34A" />
+    <text x="28" y="24" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="800" fill="#0A0A0A">PASS (0–24) · EXIT 0</text>
+    <text x="14" y="43" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Clean least-privilege skill.</text>
+    <text x="14" y="57" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Safe to lock &amp; enable.</text>
+  </g>
+  <g transform="translate(322, 340)">
+    <rect x="0" y="0" width="276" height="68" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+    <circle cx="16" cy="20" r="5" fill="#CA8A04" />
+    <text x="28" y="24" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="800" fill="#0A0A0A">WARN (25–59) · REVIEW</text>
+    <text x="14" y="43" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Elevated capabilities or drift.</text>
+    <text x="14" y="57" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Human review before trust.</text>
+  </g>
+  <g transform="translate(620, 340)">
+    <rect x="0" y="0" width="276" height="68" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+    <circle cx="16" cy="20" r="5" fill="#DC2626" />
+    <text x="28" y="24" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="11" font-weight="800" fill="#0A0A0A">BLOCK (60–100) · EXIT 1</text>
+    <text x="14" y="43" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Quarantine! SARIF + CI fail.</text>
+    <text x="14" y="57" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.3" fill="#525252">Refuse install or rug pull.</text>
+  </g>
+</svg>
