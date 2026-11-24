@@ -141,6 +141,10 @@ skill-xray ui --port 4848
 # Opens http://127.0.0.1:4848 (also serves Streamable HTTP MCP at POST /mcp)
 ```
 
+<p align="center">
+  <img src="assets/ui-preview.svg" alt="skill-xray Monochrome Web Inspector and CLI Preview" width="100%" />
+</p>
+
 ---
 
 ## Best-Case Use Cases

@@ -48,7 +48,7 @@
       <rect x="468" y="138" width="206" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
       <circle cx="480" cy="150" r="4" fill="#DC2626" stroke="#0A0A0A" stroke-width="0.9" />
       <text x="490" y="154" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">3. DENNING TAINT</text>
-      <text x="478" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">SOURCE -> XFORM -> SINK</text>
+      <text x="478" y="180" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">SOURCE -&gt; XFORM -&gt; SINK</text>
       <text x="478" y="195" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Cross-file .env/.ssh</text>
     </g>
   
@@ -72,7 +72,7 @@
       <rect x="24" y="238" width="428" height="74" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
       <rect x="24" y="238" width="428" height="24" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.2" />
       <circle cx="36" cy="250" r="4" fill="#CA8A04" stroke="#0A0A0A" stroke-width="0.9" />
-      <text x="46" y="254" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">CAPABILITY MATRIX & SATURATING RISK SCORER (0-100)</text>
+      <text x="46" y="254" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">CAPABILITY MATRIX &amp; SATURATING RISK SCORER (0-100)</text>
       <text x="34" y="280" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">7 Caps: FS_READ · FS_WRITE · SHELL · NET · CREDENTIALS · BYPASS · PERSIST</text>
       <text x="34" y="295" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Saturating aggregation: R = min(100, s_max + sum s_k / k^0.85)</text>
     </g>
@@ -83,7 +83,7 @@
       <circle cx="480" cy="250" r="4" fill="#16A34A" stroke="#0A0A0A" stroke-width="0.9" />
       <text x="490" y="254" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10.2" font-weight="800" fill="#0A0A0A">ED25519 MERKLE CRYPTOGRAPHIC LOCKFILE (skills.lock.json)</text>
       <text x="478" y="280" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" fill="#262626">SHA-256 Merkle root over every file in bundle + Ed25519 signature</text>
-      <text x="478" y="295" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Detects 1-byte silent rug-pull edits & lockfile forgery offline</text>
+      <text x="478" y="295" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9" fill="#525252">Detects 1-byte silent rug-pull edits &amp; lockfile forgery offline</text>
     </g>
 
   <!-- Output Traffic-Light Verdicts -->

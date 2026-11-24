@@ -31,6 +31,13 @@ const RED = '#DC2626';
 const MONO = "'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace";
 const SANS = "-apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif";
 
+function escXml(str) {
+  return String(str || '')
+    .replace(/&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
 function writeSvg(name, svg) {
   const p = path.join(ASSETS_DIR, name);
   fs.writeFileSync(p, svg.trim() + '\n', 'utf8');
@@ -274,9 +281,9 @@ function generateTaintDiagram() {
       <rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${WHITE}" stroke="${INK}" stroke-width="1.8" />
       <rect x="${x}" y="${y}" width="${w}" height="24" fill="${PAPER}" stroke="${INK}" stroke-width="1.2" />
       <circle cx="${x + 12}" cy="${y + 12}" r="4" fill="${led}" stroke="${INK}" stroke-width="0.9" />
-      <text x="${x + 22}" y="${y + 16}" font-family="${MONO}" font-size="10.2" font-weight="800" fill="${INK}">${title}</text>
-      <text x="${x + 10}" y="${y + 42}" font-family="${MONO}" font-size="9.5" fill="${INK2}">${l1}</text>
-      <text x="${x + 10}" y="${y + 57}" font-family="${MONO}" font-size="9" fill="${MUTED}">${l2}</text>
+      <text x="${x + 22}" y="${y + 16}" font-family="${MONO}" font-size="10.2" font-weight="800" fill="${INK}">${escXml(title)}</text>
+      <text x="${x + 10}" y="${y + 42}" font-family="${MONO}" font-size="9.5" fill="${INK2}">${escXml(l1)}</text>
+      <text x="${x + 10}" y="${y + 57}" font-family="${MONO}" font-size="9" fill="${MUTED}">${escXml(l2)}</text>
     </g>`;
 
   const svg = `
@@ -369,8 +376,8 @@ function generateBenchmarkScorecard() {
       <g transform="translate(${px}, ${py})">
         <rect x="0" y="0" width="${pw}" height="${ph}" fill="${WHITE}" stroke="${INK}" stroke-width="1.5" />
         <rect x="0" y="0" width="${pw}" height="34" fill="${PAPER}" stroke="${INK}" stroke-width="1" />
-        <text x="12" y="15" font-family="${MONO}" font-size="11" font-weight="800" fill="${INK}">${title}</text>
-        <text x="12" y="28" font-family="${MONO}" font-size="9" fill="${MUTED}">${sub}</text>`;
+        <text x="12" y="15" font-family="${MONO}" font-size="11" font-weight="800" fill="${INK}">${escXml(title)}</text>
+        <text x="12" y="28" font-family="${MONO}" font-size="9" fill="${MUTED}">${escXml(sub)}</text>`;
     const barW = pw - 208;
     rows.forEach((r, idx) => {
       const val = sc[r.key][metric];
@@ -379,7 +386,7 @@ function generateBenchmarkScorecard() {
       const barCol = invertGood ? (val === 0 ? GREEN : RED) : r.color;
       out += `
         <circle cx="14" cy="${by + 7}" r="3.5" fill="${r.color}" />
-        <text x="24" y="${by + 11}" font-family="${MONO}" font-size="10" font-weight="${r.key === 'skill_xray' ? '800' : '400'}" fill="${INK}">${r.name}</text>
+        <text x="24" y="${by + 11}" font-family="${MONO}" font-size="10" font-weight="${r.key === 'skill_xray' ? '800' : '400'}" fill="${INK}">${escXml(r.name)}</text>
         <rect x="142" y="${by + 1}" width="${barW}" height="12" fill="${PAPER}" stroke="${LIGHT}" stroke-width="1" />
         <rect x="142" y="${by + 1}" width="${w.toFixed(1)}" height="12" fill="${barCol}" />
         <text x="${148 + barW}" y="${by + 11}" font-family="${MONO}" font-size="10" font-weight="${r.key === 'skill_xray' ? '800' : '600'}" fill="${INK}">${val}%</text>`;
@@ -405,7 +412,7 @@ function generateBenchmarkScorecard() {
     const nPct = Math.round((d.naive_caught / d.total) * 100);
     classRows += `
       <circle cx="14" cy="${y + 5}" r="3.2" fill="${xPct === 100 ? GREEN : YELLOW}" />
-      <text x="24" y="${y + 9}" font-family="${MONO}" font-size="9.4" fill="${INK}">${label}</text>
+      <text x="24" y="${y + 9}" font-family="${MONO}" font-size="9.4" fill="${INK}">${escXml(label)}</text>
       <text x="202" y="${y + 9}" font-family="${MONO}" font-size="9.4" font-weight="800" fill="${GREEN}">xray ${d.xray_caught}/${d.total} (${xPct}%)</text>
       <text x="310" y="${y + 9}" font-family="${MONO}" font-size="9.0" fill="${MUTED}">grep ${d.naive_caught}/${d.total} (${nPct}%)</text>`;
   });
@@ -434,7 +441,131 @@ function generateBenchmarkScorecard() {
   writeSvg('benchmark-scorecard.svg', svg);
 }
 
+// ============================================================================
+// 5. LIVE UI + TERMINAL PREVIEW SNAPSHOT (Monochrome B&W + R/Y/G Indicators)
+// ============================================================================
+function generateUiPreview() {
+  const W = 900;
+  const H = 430;
+  const svg = `
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="skill-xray Web Inspector and CLI Preview">
+  <rect width="${W}" height="${H}" fill="${WHITE}" />
+  <rect x="6" y="6" width="${W - 12}" height="${H - 12}" fill="${WHITE}" stroke="${INK}" stroke-width="2" />
+
+  <!-- Browser Window Frame -->
+  <rect x="22" y="22" width="546" height="386" fill="${WHITE}" stroke="${INK}" stroke-width="1.8" />
+  <rect x="22" y="22" width="546" height="28" fill="${PAPER}" stroke="${INK}" stroke-width="1.4" />
+  <circle cx="38" cy="36" r="4" fill="${RED}" />
+  <circle cx="52" cy="36" r="4" fill="${YELLOW}" />
+  <circle cx="66" cy="36" r="4" fill="${GREEN}" />
+  <text x="84" y="40" font-family="${MONO}" font-size="10" font-weight="700" fill="${INK}">http://127.0.0.1:4848 — skill-xray Web Inspector</text>
+
+  <!-- Web UI KPI Strip -->
+  <g transform="translate(34, 62)">
+    <rect x="0" y="0" width="124" height="52" fill="${WHITE}" stroke="${INK}" stroke-width="1.2" />
+    <text x="8" y="15" font-family="${MONO}" font-size="8" fill="${MUTED}">SKILLS AUDITED</text>
+    <text x="8" y="34" font-family="${MONO}" font-size="17" font-weight="800" fill="${INK}">56</text>
+    <circle cx="12" cy="44" r="3" fill="${GREEN}" /><text x="19" y="47" font-family="${MONO}" font-size="7.5" fill="${INK}">48</text>
+    <circle cx="44" cy="44" r="3" fill="${YELLOW}" /><text x="51" y="47" font-family="${MONO}" font-size="7.5" fill="${INK}">4</text>
+    <circle cx="72" cy="44" r="3" fill="${RED}" /><text x="79" y="47" font-family="${MONO}" font-size="7.5" fill="${INK}">4</text>
+
+    <rect x="132" y="0" width="124" height="52" fill="${WHITE}" stroke="${INK}" stroke-width="1.2" />
+    <text x="140" y="15" font-family="${MONO}" font-size="8" fill="${MUTED}">OVERALL VERDICT</text>
+    <circle cx="146" cy="30" r="4" fill="${RED}" />
+    <text x="156" y="34" font-family="${MONO}" font-size="14" font-weight="800" fill="${INK}">BLOCK</text>
+    <text x="140" y="47" font-family="${MONO}" font-size="7.5" fill="${MUTED}">4 critical alerts</text>
+
+    <rect x="264" y="0" width="124" height="52" fill="${WHITE}" stroke="${INK}" stroke-width="1.2" />
+    <text x="272" y="15" font-family="${MONO}" font-size="8" fill="${MUTED}">METADATA CAP</text>
+    <circle cx="278" cy="30" r="4" fill="${RED}" />
+    <text x="288" y="34" font-family="${MONO}" font-size="14" font-weight="800" fill="${INK}">264%</text>
+    <text x="272" y="47" font-family="${MONO}" font-size="7.5" fill="${MUTED}">21k / 8k chars</text>
+
+    <rect x="396" y="0" width="126" height="52" fill="${WHITE}" stroke="${INK}" stroke-width="1.2" />
+    <text x="404" y="15" font-family="${MONO}" font-size="8" fill="${MUTED}">LOCKFILE</text>
+    <circle cx="410" cy="30" r="4" fill="${GREEN}" />
+    <text x="420" y="34" font-family="${MONO}" font-size="13" font-weight="800" fill="${INK}">Ed25519</text>
+    <text x="404" y="47" font-family="${MONO}" font-size="7.5" fill="${MUTED}">Merkle SHA-256</text>
+  </g>
+
+  <!-- Web UI Conveyor Box -->
+  <g transform="translate(34, 126)">
+    <rect x="0" y="0" width="522" height="122" fill="${PAPER}" stroke="${INK}" stroke-width="1.3" />
+    <text x="10" y="18" font-family="${MONO}" font-size="9.5" font-weight="800" fill="${INK}">LIVE X-RAY CONVEYOR — PASTE UNTRUSTED SKILL.md + SCRIPT</text>
+    <rect x="10" y="26" width="502" height="44" fill="${WHITE}" stroke="${RED}" stroke-width="1.4" />
+    <circle cx="22" cy="40" r="3.5" fill="${RED}" />
+    <text x="32" y="43" font-family="${MONO}" font-size="8.8" font-weight="800" fill="${INK}">[CRITICAL] TAINT_EXFIL_FLOW — scripts/helper.sh:3</text>
+    <text x="20" y="59" font-family="${MONO}" font-size="8.2" fill="${MUTED}">SOURCE [.env] -&gt; TRANSFORM [base64] -&gt; SINK [webhook.site]</text>
+    <rect x="10" y="78" width="502" height="34" fill="${WHITE}" stroke="${INK}" stroke-width="1.1" />
+    <text x="20" y="99" font-family="${MONO}" font-size="8.6" font-weight="700" fill="${INK}">CAPABILITIES: [SHELL_EXEC] [NET_EGRESS] [CREDENTIAL_ACCESS]</text>
+  </g>
+
+  <!-- Web UI Table Preview -->
+  <g transform="translate(34, 260)">
+    <rect x="0" y="0" width="522" height="136" fill="${WHITE}" stroke="${INK}" stroke-width="1.3" />
+    <rect x="0" y="0" width="522" height="22" fill="${PAPER}" stroke="${INK}" stroke-width="1" />
+    <text x="10" y="15" font-family="${MONO}" font-size="8.5" font-weight="800" fill="${INK}">VERDICT       SKILL                   RISK     MERKLE</text>
+
+    <circle cx="14" cy="39" r="3.5" fill="${RED}" />
+    <text x="24" y="42" font-family="${MONO}" font-size="8.8" fill="${INK}">BLOCK         sneaky-helper           98/100   a8f10d92c4e1</text>
+    <line x1="8" y1="52" x2="514" y2="52" stroke="${LIGHT}" stroke-width="1" />
+
+    <circle cx="14" cy="67" r="3.5" fill="${YELLOW}" />
+    <text x="24" y="70" font-family="${MONO}" font-size="8.8" fill="${INK}">WARN          stitch-upload           45/100   6f1e0c1ca243</text>
+    <line x1="8" y1="80" x2="514" y2="80" stroke="${LIGHT}" stroke-width="1" />
+
+    <circle cx="14" cy="95" r="3.5" fill="${GREEN}" />
+    <text x="24" y="98" font-family="${MONO}" font-size="8.8" fill="${INK}">PASS          hippo-cache              0/100   218b02520e09</text>
+    <line x1="8" y1="108" x2="514" y2="108" stroke="${LIGHT}" stroke-width="1" />
+
+    <circle cx="14" cy="123" r="3.5" fill="${GREEN}" />
+    <text x="24" y="126" font-family="${MONO}" font-size="8.8" fill="${INK}">PASS          vitest-runner            0/100   c15539222e77</text>
+  </g>
+
+  <!-- RIGHT PANE: Terminal CLI Preview -->
+  <g transform="translate(584, 22)">
+    <rect x="0" y="0" width="294" height="386" fill="${INK}" stroke="${INK}" stroke-width="1.8" />
+    <rect x="0" y="0" width="294" height="28" fill="${INK2}" stroke="${INK}" stroke-width="1" />
+    <circle cx="16" cy="14" r="3.5" fill="${RED}" />
+    <circle cx="29" cy="14" r="3.5" fill="${YELLOW}" />
+    <circle cx="42" cy="14" r="3.5" fill="${GREEN}" />
+    <text x="58" y="18" font-family="${MONO}" font-size="9.5" font-weight="700" fill="${WHITE}">zsh — skill-xray CLI</text>
+
+    <g font-family="${MONO}" font-size="8.8" fill="${WHITE}">
+      <text x="12" y="50" fill="${LIGHT}">$ skill-xray scan .</text>
+      <circle cx="16" cy="68" r="3" fill="${GREEN}" />
+      <text x="25" y="71">56 skills audited (472ms)</text>
+      <text x="20" y="88" fill="${GREEN}">PASS=48</text>
+      <text x="82" y="88" fill="${YELLOW}">WARN=4</text>
+      <text x="138" y="88" fill="${RED}">BLOCK=4</text>
+
+      <text x="12" y="116" fill="${LIGHT}">$ skill-xray lock .</text>
+      <circle cx="16" cy="134" r="3" fill="${GREEN}" />
+      <text x="25" y="137">Locked 56 skills (Ed25519)</text>
+      <text x="20" y="153" fill="${LIGHT}">key: b9e41912d717ca99</text>
+
+      <text x="12" y="182" fill="${LIGHT}">$ skill-xray verify .</text>
+      <circle cx="16" cy="200" r="3" fill="${RED}" />
+      <text x="25" y="203" font-weight="700" fill="${RED}">TAMPERED (rug pull!)</text>
+      <text x="20" y="219" fill="${WHITE}">~scripts/check.sh changed</text>
+      <text x="20" y="234" fill="${RED}">live verdict: BLOCK (98)</text>
+
+      <text x="12" y="264" fill="${LIGHT}">$ skill-xray init all</text>
+      <circle cx="16" cy="282" r="3" fill="${GREEN}" />
+      <text x="25" y="285">Wired guard SKILL + MCP:</text>
+      <text x="20" y="301" fill="${LIGHT}">+ .claude/skills/skill-xray</text>
+      <text x="20" y="316" fill="${LIGHT}">+ .codex/skills/skill-xray</text>
+      <text x="20" y="331" fill="${LIGHT}">+ .cursor/rules/skill-xray</text>
+      <text x="20" y="346" fill="${LIGHT}">+ .agent/skills/skill-xray</text>
+      <text x="20" y="368" fill="${GREEN}">exit 0 · zero neon</text>
+    </g>
+  </g>
+</svg>`;
+  writeSvg('ui-preview.svg', svg);
+}
+
 generateLogo();
 generateThreatAnatomy();
 generateTaintDiagram();
 generateBenchmarkScorecard();
+generateUiPreview();

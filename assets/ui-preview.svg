@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 430" width="900" height="430" role="img" aria-label="skill-xray Web Inspector and CLI Preview">
+  <rect width="900" height="430" fill="#FFFFFF" />
+  <rect x="6" y="6" width="888" height="418" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2" />
+
+  <!-- Browser Window Frame -->
+  <rect x="22" y="22" width="546" height="386" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.8" />
+  <rect x="22" y="22" width="546" height="28" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.4" />
+  <circle cx="38" cy="36" r="4" fill="#DC2626" />
+  <circle cx="52" cy="36" r="4" fill="#CA8A04" />
+  <circle cx="66" cy="36" r="4" fill="#16A34A" />
+  <text x="84" y="40" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="10" font-weight="700" fill="#0A0A0A">http://127.0.0.1:4848 — skill-xray Web Inspector</text>
+
+  <!-- Web UI KPI Strip -->
+  <g transform="translate(34, 62)">
+    <rect x="0" y="0" width="124" height="52" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.2" />
+    <text x="8" y="15" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8" fill="#525252">SKILLS AUDITED</text>
+    <text x="8" y="34" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="17" font-weight="800" fill="#0A0A0A">56</text>
+    <circle cx="12" cy="44" r="3" fill="#16A34A" /><text x="19" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#0A0A0A">48</text>
+    <circle cx="44" cy="44" r="3" fill="#CA8A04" /><text x="51" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#0A0A0A">4</text>
+    <circle cx="72" cy="44" r="3" fill="#DC2626" /><text x="79" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#0A0A0A">4</text>
+
+    <rect x="132" y="0" width="124" height="52" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.2" />
+    <text x="140" y="15" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8" fill="#525252">OVERALL VERDICT</text>
+    <circle cx="146" cy="30" r="4" fill="#DC2626" />
+    <text x="156" y="34" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="800" fill="#0A0A0A">BLOCK</text>
+    <text x="140" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#525252">4 critical alerts</text>
+
+    <rect x="264" y="0" width="124" height="52" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.2" />
+    <text x="272" y="15" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8" fill="#525252">METADATA CAP</text>
+    <circle cx="278" cy="30" r="4" fill="#DC2626" />
+    <text x="288" y="34" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="14" font-weight="800" fill="#0A0A0A">264%</text>
+    <text x="272" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#525252">21k / 8k chars</text>
+
+    <rect x="396" y="0" width="126" height="52" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.2" />
+    <text x="404" y="15" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8" fill="#525252">LOCKFILE</text>
+    <circle cx="410" cy="30" r="4" fill="#16A34A" />
+    <text x="420" y="34" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="13" font-weight="800" fill="#0A0A0A">Ed25519</text>
+    <text x="404" y="47" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="7.5" fill="#525252">Merkle SHA-256</text>
+  </g>
+
+  <!-- Web UI Conveyor Box -->
+  <g transform="translate(34, 126)">
+    <rect x="0" y="0" width="522" height="122" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1.3" />
+    <text x="10" y="18" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" font-weight="800" fill="#0A0A0A">LIVE X-RAY CONVEYOR — PASTE UNTRUSTED SKILL.md + SCRIPT</text>
+    <rect x="10" y="26" width="502" height="44" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.4" />
+    <circle cx="22" cy="40" r="3.5" fill="#DC2626" />
+    <text x="32" y="43" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" font-weight="800" fill="#0A0A0A">[CRITICAL] TAINT_EXFIL_FLOW — scripts/helper.sh:3</text>
+    <text x="20" y="59" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.2" fill="#525252">SOURCE [.env] -&gt; TRANSFORM [base64] -&gt; SINK [webhook.site]</text>
+    <rect x="10" y="78" width="502" height="34" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.1" />
+    <text x="20" y="99" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.6" font-weight="700" fill="#0A0A0A">CAPABILITIES: [SHELL_EXEC] [NET_EGRESS] [CREDENTIAL_ACCESS]</text>
+  </g>
+
+  <!-- Web UI Table Preview -->
+  <g transform="translate(34, 260)">
+    <rect x="0" y="0" width="522" height="136" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="1.3" />
+    <rect x="0" y="0" width="522" height="22" fill="#F7F7F7" stroke="#0A0A0A" stroke-width="1" />
+    <text x="10" y="15" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.5" font-weight="800" fill="#0A0A0A">VERDICT       SKILL                   RISK     MERKLE</text>
+
+    <circle cx="14" cy="39" r="3.5" fill="#DC2626" />
+    <text x="24" y="42" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" fill="#0A0A0A">BLOCK         sneaky-helper           98/100   a8f10d92c4e1</text>
+    <line x1="8" y1="52" x2="514" y2="52" stroke="#D4D4D4" stroke-width="1" />
+
+    <circle cx="14" cy="67" r="3.5" fill="#CA8A04" />
+    <text x="24" y="70" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" fill="#0A0A0A">WARN          stitch-upload           45/100   6f1e0c1ca243</text>
+    <line x1="8" y1="80" x2="514" y2="80" stroke="#D4D4D4" stroke-width="1" />
+
+    <circle cx="14" cy="95" r="3.5" fill="#16A34A" />
+    <text x="24" y="98" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" fill="#0A0A0A">PASS          hippo-cache              0/100   218b02520e09</text>
+    <line x1="8" y1="108" x2="514" y2="108" stroke="#D4D4D4" stroke-width="1" />
+
+    <circle cx="14" cy="123" r="3.5" fill="#16A34A" />
+    <text x="24" y="126" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" fill="#0A0A0A">PASS          vitest-runner            0/100   c15539222e77</text>
+  </g>
+
+  <!-- RIGHT PANE: Terminal CLI Preview -->
+  <g transform="translate(584, 22)">
+    <rect x="0" y="0" width="294" height="386" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="1.8" />
+    <rect x="0" y="0" width="294" height="28" fill="#262626" stroke="#0A0A0A" stroke-width="1" />
+    <circle cx="16" cy="14" r="3.5" fill="#DC2626" />
+    <circle cx="29" cy="14" r="3.5" fill="#CA8A04" />
+    <circle cx="42" cy="14" r="3.5" fill="#16A34A" />
+    <text x="58" y="18" font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="9.5" font-weight="700" fill="#FFFFFF">zsh — skill-xray CLI</text>
+
+    <g font-family="'SFMono-Regular', Menlo, Monaco, Consolas, 'Liberation Mono', monospace" font-size="8.8" fill="#FFFFFF">
+      <text x="12" y="50" fill="#D4D4D4">$ skill-xray scan .</text>
+      <circle cx="16" cy="68" r="3" fill="#16A34A" />
+      <text x="25" y="71">56 skills audited (472ms)</text>
+      <text x="20" y="88" fill="#16A34A">PASS=48</text>
+      <text x="82" y="88" fill="#CA8A04">WARN=4</text>
+      <text x="138" y="88" fill="#DC2626">BLOCK=4</text>
+
+      <text x="12" y="116" fill="#D4D4D4">$ skill-xray lock .</text>
+      <circle cx="16" cy="134" r="3" fill="#16A34A" />
+      <text x="25" y="137">Locked 56 skills (Ed25519)</text>
+      <text x="20" y="153" fill="#D4D4D4">key: b9e41912d717ca99</text>
+
+      <text x="12" y="182" fill="#D4D4D4">$ skill-xray verify .</text>
+      <circle cx="16" cy="200" r="3" fill="#DC2626" />
+      <text x="25" y="203" font-weight="700" fill="#DC2626">TAMPERED (rug pull!)</text>
+      <text x="20" y="219" fill="#FFFFFF">~scripts/check.sh changed</text>
+      <text x="20" y="234" fill="#DC2626">live verdict: BLOCK (98)</text>
+
+      <text x="12" y="264" fill="#D4D4D4">$ skill-xray init all</text>
+      <circle cx="16" cy="282" r="3" fill="#16A34A" />
+      <text x="25" y="285">Wired guard SKILL + MCP:</text>
+      <text x="20" y="301" fill="#D4D4D4">+ .claude/skills/skill-xray</text>
+      <text x="20" y="316" fill="#D4D4D4">+ .codex/skills/skill-xray</text>
+      <text x="20" y="331" fill="#D4D4D4">+ .cursor/rules/skill-xray</text>
+      <text x="20" y="346" fill="#D4D4D4">+ .agent/skills/skill-xray</text>
+      <text x="20" y="368" fill="#16A34A">exit 0 · zero neon</text>
+    </g>
+  </g>
+</svg>
